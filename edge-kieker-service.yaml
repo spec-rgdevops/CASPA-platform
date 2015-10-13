@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: edge
   labels:
-    name: edge-kieker
+    name: edge
 spec:
   type: NodePort
   ports:
   - port: 9090
     name: http
   selector:
-    name: edge-kieker
+    name: edge

@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: middletier
   labels:
-    name: middletier-kieker
+    name: middletier
 spec:
   type: NodePort
   ports:
   - port: 9191
     name: http
   selector:
-    name: middletier-kieker
+    name: middletier

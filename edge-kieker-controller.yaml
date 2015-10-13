@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: edge-kieker
+  name: edge
   labels:
-    name: edge-kieker
+    name: edge
 spec:
   replicas: 1
   selector:
-    name: edge-kieker
+    name: edge
   template:
     metadata:
       labels:
-        name: edge-kieker
+        name: edge
     spec:
       containers:
-        - name: edge-kieker
+        - name: edge
           image: hora/recipes-rss-edge-kieker:0.3
           ports:
             - containerPort: 9090

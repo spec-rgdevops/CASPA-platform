@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: middletier-kieker
+  name: middletier
   labels:
-    name: middletier-kieker
+    name: middletier
 spec:
   replicas: 1
   selector:
-    name: middletier-kieker
+    name: middletier
   template:
     metadata:
       labels:
-        name: middletier-kieker
+        name: middletier
     spec:
       containers:
-        - name: middletier-kieker
+        - name: middletier
           image: hora/recipes-rss-middletier-kieker:0.3
           ports:
             - containerPort: 9191
