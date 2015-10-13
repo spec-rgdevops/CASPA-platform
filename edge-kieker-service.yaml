@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: edge-kieker
+  labels:
+    name: edge-kieker
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    name: http
+  selector:
+    name: edge-kieker
