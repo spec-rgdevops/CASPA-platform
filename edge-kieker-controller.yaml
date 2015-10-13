@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: edge-kieker
-          image: hora/recipes-rss-kieker-edge:0.3
+          image: hora/recipes-rss-edge-kieker:0.3
           ports:
             - containerPort: 9090
