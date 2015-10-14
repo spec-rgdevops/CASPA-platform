@@ -4,6 +4,7 @@ Configuration files for deploying [RSS Recipes](https://github.com/hora-predicti
 
 # System requirements
 * A cluster of at least 2 nodes (1 master + 2 minions) running kubernetes. The instruction of how to setup kubernetes can be found [here](http://kubernetes.io/v1.0/docs/getting-started-guides/README.html).
+* [DNS in kubernetes](https://github.com/kubernetes/kubernetes/blob/v1.0.3/cluster/addons/dns/README.md)
 
 # How to deploy RSS Recipes
 
