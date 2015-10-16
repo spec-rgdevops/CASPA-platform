@@ -23,3 +23,23 @@ The cassandra must be initialized before it can serve the first request. This ca
 ```cqlsh -f create.cql <IP of one of the minions> <NodePort of cassandra service>```
 
 on any machine that can connect to the cluster.
+
+# Horizontal scaling
+
+```kubectl scale rc <Replication controller> --replicas=<number of replicas>```
+
+Example:
+
+```kubectl scale rc edge --replicas=3```
+
+will create 3 replicas for the edge.
+
+# Rolling update
+
+```kubectl rolling-update edge --image=<new image>```
+
+Example:
+
+```kubectl rolling-update edge --image=hora/recipes-rss-kube-edge:0.3```
+
+will update edge containers to version 0.3.
