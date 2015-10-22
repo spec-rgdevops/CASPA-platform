@@ -43,3 +43,7 @@ Example:
 ```kubectl rolling-update edge --image=hora/recipes-rss-kube-edge:0.3```
 
 will update edge containers to version 0.3.
+
+# Deployment screencast
+
+[![asciicast](https://asciinema.org/a/055suasfhroh9pknvg97ql6rt.png)](https://asciinema.org/a/055suasfhroh9pknvg97ql6rt)
