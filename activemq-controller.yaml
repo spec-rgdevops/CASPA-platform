@@ -15,8 +15,13 @@ spec:
     spec:
       containers:
       - name: activemq
-        image: kdomanski/activemq
+        image: webcenter/activemq
         ports:
         - containerPort: 8161
         - containerPort: 61616
         - containerPort: 61613
+        env:
+          - name: SERIALIZABLE_PACKAGES
+            value: *
+          - name: STATIC_QUEUES
+            value: queue1 
