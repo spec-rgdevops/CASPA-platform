@@ -9,10 +9,10 @@ spec:
   ports:
     - port: 9042
       name: cql
-      nodePort: 31003
+      nodePort: 31002
     - port: 9160
       name: thrift
-      nodePort: 31002
+      nodePort: 31003
   selector:
     name: cassandra
 ---
