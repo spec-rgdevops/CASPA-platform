@@ -1,0 +1,133 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cassandra
+  labels:
+    name: cassandra
+spec:
+  type: NodePort
+  ports:
+    - port: 9042
+      name: cql
+      nodePort: 31003
+    - port: 9160
+      name: thrift
+      nodePort: 31002
+  selector:
+    name: cassandra
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: cassandra
+  name: cassandra
+spec:
+  replicas: 1
+  selector:
+    name: cassandra
+  template:
+    metadata:
+      labels:
+        name: cassandra
+    spec:
+      containers:
+        - command:
+            - /run.sh
+          resources:
+            limits:
+              cpu: 0.1
+          env:
+            - name: MAX_HEAP_SIZE
+              value: 512M
+            - name: HEAP_NEWSIZE
+              value: 100M
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          image: gcr.io/google_containers/cassandra:v5
+          name: cassandra
+          ports:
+            - containerPort: 9042
+              name: cql
+            - containerPort: 9160
+              name: thrift
+          volumeMounts:
+            - mountPath: /cassandra_data
+              name: data
+      volumes:
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: middletier
+  labels:
+    name: middletier
+spec:
+  type: NodePort
+  ports:
+  - port: 9191
+    nodePort: 31001
+    name: http
+  selector:
+    name: middletier
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: middletier
+  labels:
+    name: middletier
+spec:
+  replicas: 1
+  selector:
+    name: middletier
+  template:
+    metadata:
+      labels:
+        name: middletier
+    spec:
+      containers:
+      - name: middletier
+        image: hora/recipes-rss-middletier:0.2
+        ports:
+        - containerPort: 9191
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edge
+  labels:
+    name: edge
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    name: http
+    nodePort: 31000
+  selector:
+    name: edge
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: edge
+  labels:
+    name: edge
+spec:
+  replicas: 1
+  selector:
+    name: edge
+  template:
+    metadata:
+      labels:
+        name: edge
+    spec:
+      containers:
+      - name: edge
+        image: hora/recipes-rss-edge:0.2
+        ports:
+        - containerPort: 9090
