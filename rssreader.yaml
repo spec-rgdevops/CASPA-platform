@@ -131,3 +131,39 @@ spec:
         image: hora/recipes-rss-edge:0.2
         ports:
         - containerPort: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rssserver
+  labels:
+    name: rssserver
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    name: http
+    nodePort: 31040
+  selector:
+    name: rssserver
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rssserver
+  labels:
+    name: rssserver
+spec:
+  replicas: 1
+  selector:
+    name: rssserver
+  template:
+    metadata:
+      labels:
+        name: rssserver
+    spec:
+      containers:
+      - name: rssserver
+        image: hora/recipes-rss-rssserver:0.1
+        ports:
+        - containerPort: 80
