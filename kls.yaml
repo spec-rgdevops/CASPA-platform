@@ -7,12 +7,18 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 22
-    name: ssh
-    nodePort: 31010
-  - port: 8080
+  - port: 8161
     name: http
+    nodePort: 31010
+  - port: 61616
+    name: tcp
     nodePort: 31011
+  - port: 61613
+    name: stomp
+    nodePort: 31012
+  - port: 8080
+    name: kls-http
+    nodePort: 31020
   selector:
     name: kls
 ---
@@ -32,15 +38,26 @@ spec:
         name: kls
     spec:
       containers:
-      - name: kls
+      - name: activemq
+        image: webcenter/activemq
+        ports:
+        - containerPort: 8161
+        - containerPort: 61616
+        - containerPort: 61613
+        env:
+          - name: ACTIVEMQ_SERIALIZABLE_PACKAGES
+            value: '*'
+          - name: ACTIVEMQ_STATIC_QUEUES
+            value: kieker
+      - name: kieker-logging-server
         image: kieker/kieker-logging-server
         ports:
         - containerPort: 22
         - containerPort: 8080
         env:
           - name: KLS_JMS_HOST
-            value: activemq
+            value: localhost
           - name: KLS_JMS_PORT
             value: '61616'
           - name: KLS_JMS_QUEUE
-            value: queue1
+            value: kieker
