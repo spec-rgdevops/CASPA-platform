@@ -1,0 +1,16 @@
+If running on minikube, the url would be: 192.168.99.100:XXXXX
+If running on a cluster, the url would be: <node-ip>:XXXXX
+
+31000 edge
+31001 middletier
+31002 cassandra cql
+31003 cassandra thrift
+31010 activemq http
+31011 activemq tcp
+31012 activemq stomp
+31020 kls http
+31030 pmx
+31040 rss feed server
+31050 locust master web
+31051 locust master p1
+31052 locust master p2
