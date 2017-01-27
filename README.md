@@ -3,47 +3,36 @@
 Configuration files for deploying [RSS Recipes](https://github.com/hora-prediction/recipes-rss-kube) on Kubernetes.
 
 # System requirements
-* A cluster of at least 2 nodes (1 master + 2 minions) running kubernetes. The instruction of how to setup kubernetes can be found [here](http://kubernetes.io/v1.0/docs/getting-started-guides/README.html).
-* [DNS in kubernetes](https://github.com/kubernetes/kubernetes/blob/v1.0.3/cluster/addons/dns/README.md)
+* A Kubernetes cluster
+   * [minikube](https://github.com/kubernetes/minikube) on a local machine or
+   * Physical Kubernetes cluster
 
 # How to deploy RSS Recipes
 
-RSS Recipes can be deployed on a running kubernetes cluster by executing the following commands on the master node:
-* ```kubectl create -f cassandra-service.yaml```
-* ```kubectl create -f cassandra-controller.yaml```
-* ```kubectl create -f middletier-service.yaml```
-* ```kubectl create -f middletier-controller.yaml```
-* ```kubectl create -f edge-service.yaml```
-* ```kubectl create -f edge-controller.yaml```
+RSS Recipes can be deployed by executing the following steps on the master node:
 
-These commands will pull and run the corresponding docker images from [Docker Hub](https://hub.docker.com/u/hora/).
-
-The cassandra must be initialized before it can serve the first request. This can be done by executing:
-
-```cqlsh -f create.cql <IP of one of the minions> <NodePort of cassandra service>```
-
-on any machine that can connect to the cluster.
-
-# Horizontal scaling
-
-```kubectl scale rc <Replication controller> --replicas=<number of replicas>```
-
-Example:
-
-```kubectl scale rc edge --replicas=3```
-
-will create 3 replicas for the edge.
-
-# Rolling update
-
-```kubectl rolling-update edge --image=<new image>```
-
-Example:
-
-```kubectl rolling-update edge --image=hora/recipes-rss-kube-edge:0.3```
-
-will update edge containers to version 0.3.
-
-# Deployment screencast
-
-[![asciicast](https://asciinema.org/a/055suasfhroh9pknvg97ql6rt.png)](https://asciinema.org/a/055suasfhroh9pknvg97ql6rt)
+1. Deploy ActiveMQ server
+   * ```kubectl create -f activemq.yaml```
+1. Deploy Kieker Logging Server
+   * ```kubectl create -f kls.yaml```
+1. Deploy RSS Recipes application
+   * ```kubectl create -f rssreader.yaml``` for the application without instrumentation or
+   * ```kubectl create -f rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
+1. Initialize cassandra keyspace
+   * ```./kubectl exec -i cassandra-xxxxx -- bash -c "cat > /initialize-cassandra.cql" < initialize-cassandra.cql```
+      * where ```cassandra-xxxxx``` is the name of one of the cassandra pods
+   * ```./kubectl exec cassandra-xxxxx -- cqlsh -f /initialize-cassandra.cql <node-ip> 31002```
+      * where ```<node-ip>``` is the ip of one of the Kubernetes nodes
+1. Deploy [Locust](http://locust.io/) for load testing
+   * ```kubectl create -f locust-master.yaml```
+   * ```kubectl create -f locust-worker.yaml```
+   
+The following web-ui can be accessed if minikube is used:
+* RSS Recipes
+   * https://192.168.99.100:31000
+* Locust
+   * https://192.168.99.100:31050
+* ActiveMQ
+   * https://192.168.99.100:31010
+* Kieker monitoring log (available as a zip file)
+   * https://192.168.99.100:31020
