@@ -29,10 +29,10 @@ RSS Recipes can be deployed by executing the following steps on the master node:
    
 The following web-ui can be accessed if minikube is used:
 * RSS Recipes
-   * https://192.168.99.100:31000
+   * http://192.168.99.100:31000/jsp/rss.jsp
 * Locust
-   * https://192.168.99.100:31050
+   * http://192.168.99.100:31050
 * ActiveMQ
-   * https://192.168.99.100:31010
+   * http://192.168.99.100:31010
 * Kieker monitoring log (available as a zip file)
-   * https://192.168.99.100:31020
+   * http://192.168.99.100:31020
