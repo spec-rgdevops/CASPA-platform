@@ -33,6 +33,6 @@ The following web-ui can be accessed if minikube is used:
 * Locust
    * http://192.168.99.100:31050
 * ActiveMQ
-   * http://192.168.99.100:31010
+   * http://192.168.99.100:31010 (username: admin, password: admin)
 * Kieker monitoring log (available as a zip file)
-   * http://192.168.99.100:31020
+   * http://192.168.99.100:31020/logs
