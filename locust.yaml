@@ -48,6 +48,7 @@ spec:
       containers:
         - name: locust
           image: hora/recipes-rss-locust:0.1
+          imagePullPolicy: Always
           env:
             - name: LOCUST_MODE
               key: LOCUST_MODE
@@ -87,6 +88,7 @@ spec:
       containers:
         - name: locust
           image: hora/recipes-rss-locust:0.1
+          imagePullPolicy: Always
           env:
             - name: LOCUST_MODE
               key: LOCUST_MODE
