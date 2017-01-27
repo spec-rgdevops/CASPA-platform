@@ -9,10 +9,13 @@ spec:
   ports:
   - port: 8161
     name: http
+    nodePort: 31010
   - port: 61616
     name: tcp
+    nodePort: 31011
   - port: 61613
     name: stomp
+    nodePort: 31012
   selector:
     name: activemq
 ---
@@ -42,4 +45,4 @@ spec:
           - name: ACTIVEMQ_SERIALIZABLE_PACKAGES
             value: '*'
           - name: ACTIVEMQ_STATIC_QUEUES
-            value: queue1
+            value: kieker
