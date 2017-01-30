@@ -19,9 +19,9 @@ RSS Recipes can be deployed by executing the following steps on the master node:
    * ```kubectl create -f rssreader.yaml``` for the application without instrumentation or
    * ```kubectl create -f rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
 1. Initialize cassandra keyspace
-   * ```./kubectl exec -i cassandra-xxxxx -- bash -c "cat > /initialize-cassandra.cql" < initialize-cassandra.cql```
+   * ```kubectl exec -i cassandra-xxxxx -- bash -c "cat > /initialize-cassandra.cql" < initialize-cassandra.cql```
       * where ```cassandra-xxxxx``` is the name of one of the cassandra pods
-   * ```./kubectl exec cassandra-xxxxx -- cqlsh -f /initialize-cassandra.cql <node-ip> 31002```
+   * ```kubectl exec cassandra-xxxxx -- cqlsh -f /initialize-cassandra.cql <node-ip> 31002```
       * where ```<node-ip>``` is the ip of one of the Kubernetes nodes
 1. Deploy [Locust](http://locust.io/) for load testing
    * ```kubectl create -f locust-master.yaml```
