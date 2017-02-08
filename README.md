@@ -19,10 +19,9 @@ RSS Recipes can be deployed by executing the following steps on the master node:
    * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/rssreader.yaml``` for the application without instrumentation or
    * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
 1. Initialize cassandra keyspace
-   * ```kubectl exec -i cassandra-xxxxx -- bash -c "cat > /initialize-cassandra.cql" < initialize-cassandra.cql```
-      * where ```cassandra-xxxxx``` is the name of one of the cassandra pods
-   * ```kubectl exec cassandra-xxxxx -- cqlsh -f /initialize-cassandra.cql <node-ip> 31002```
-      * where ```<node-ip>``` is the ip of one of the Kubernetes nodes
+   * ```curl -s https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/initialize-cassandra.cql -o initialize-cassandra.cql```
+   * ```kubectl exec -i $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- bash -c "cat > /initialize-cassandra.cql" < initialize-cassandra.cql```
+   * ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002```
 1. Deploy [Locust](http://locust.io/) for load testing
    * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-master.yaml```
    * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-worker.yaml```
