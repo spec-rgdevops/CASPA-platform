@@ -5,7 +5,7 @@ Configuration files for deploying [RSS Recipes](https://github.com/hora-predicti
 # System requirements
 * A Kubernetes cluster
    * [minikube](https://github.com/kubernetes/minikube) on a local machine or
-   * Physical Kubernetes cluster
+   * [Physical/virtual cluster](https://kubernetes.io/docs/getting-started-guides/)
 
 # How to deploy RSS Recipes
 
@@ -36,5 +36,5 @@ After deploying all components, the following web-ui can be accessed:
       * http://192.168.99.100:31010 (username: admin, password: admin)
    * Kieker monitoring log (available as a zip file)
       * http://192.168.99.100:31020/logs
-* For physical kubernetes cluster
+* For physical/virtual cluster
    * Same as those for minikube but replace `192.168.99.100` with one of the node IPs. (Run `kubectl get nodes` to see the list of nodes)
