@@ -22,11 +22,8 @@ spec:
           imagePullPolicy: Always
           env:
             - name: LOCUST_MODE
-              key: LOCUST_MODE
               value: slave
             - name: MASTER_HOST
-              key: MASTER_HOST
               value: locust-master
             - name: TARGET_URL
-              key: TARGET_URL
               value: http://edge:9090
