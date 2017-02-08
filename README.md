@@ -21,17 +21,20 @@ RSS Recipes can be deployed by executing the following steps on the master node:
 1. Initialize cassandra keyspace
    * ```curl -s https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/initialize-cassandra.cql -o initialize-cassandra.cql```
    * ```kubectl exec -i $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- bash -c "cat > /initialize-cassandra.cql" < initialize-cassandra.cql```
-   * ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002```
+   * ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002``` Note: This step may need to be executed many times until it returns success.
 1. Deploy [Locust](http://locust.io/) for load testing
    * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-master.yaml```
    * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-worker.yaml```
    
-The following web-ui can be accessed if minikube is used:
-* RSS Recipes
-   * http://192.168.99.100:31000/jsp/rss.jsp
-* Locust
-   * http://192.168.99.100:31050
-* ActiveMQ
-   * http://192.168.99.100:31010 (username: admin, password: admin)
-* Kieker monitoring log (available as a zip file)
-   * http://192.168.99.100:31020/logs
+After deploying all components, the following web-ui can be accessed:
+* For minikube
+   * RSS Recipes
+      * http://192.168.99.100:31000/jsp/rss.jsp
+   * Locust
+      * http://192.168.99.100:31050
+   * ActiveMQ
+      * http://192.168.99.100:31010 (username: admin, password: admin)
+   * Kieker monitoring log (available as a zip file)
+      * http://192.168.99.100:31020/logs
+* For physical kubernetes cluster
+   * Same as those for minikube but replace `192.168.99.100` with one of the node IPs. (Run `kubectl get nodes` to see the list of nodes)
