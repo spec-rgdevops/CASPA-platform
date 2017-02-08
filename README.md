@@ -12,20 +12,20 @@ Configuration files for deploying [RSS Recipes](https://github.com/hora-predicti
 RSS Recipes can be deployed by executing the following steps on the master node:
 
 1. Deploy ActiveMQ server
-   * ```kubectl create -f activemq.yaml```
+   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/activemq.yaml```
 1. Deploy Kieker Logging Server
-   * ```kubectl create -f kls.yaml```
+   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/kls.yaml```
 1. Deploy RSS Recipes application
-   * ```kubectl create -f rssreader.yaml``` for the application without instrumentation or
-   * ```kubectl create -f rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
+   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/rssreader.yaml``` for the application without instrumentation or
+   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
 1. Initialize cassandra keyspace
    * ```kubectl exec -i cassandra-xxxxx -- bash -c "cat > /initialize-cassandra.cql" < initialize-cassandra.cql```
       * where ```cassandra-xxxxx``` is the name of one of the cassandra pods
    * ```kubectl exec cassandra-xxxxx -- cqlsh -f /initialize-cassandra.cql <node-ip> 31002```
       * where ```<node-ip>``` is the ip of one of the Kubernetes nodes
 1. Deploy [Locust](http://locust.io/) for load testing
-   * ```kubectl create -f locust-master.yaml```
-   * ```kubectl create -f locust-worker.yaml```
+   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-master.yaml```
+   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-worker.yaml```
    
 The following web-ui can be accessed if minikube is used:
 * RSS Recipes
