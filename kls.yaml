@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: kls
-        image: kieker/kieker-logging-server:0.0.3
+        image: kieker/kieker-logging-server:0.0.4
         imagePullPolicy: Always
         ports:
         - containerPort: 22
