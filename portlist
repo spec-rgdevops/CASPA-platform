@@ -9,6 +9,7 @@ If running on a cluster, the url would be: <node-ip>:XXXXX
 31011 activemq tcp
 31012 activemq stomp
 31020 kls http
+31021 kls ssh
 31030 pmx
 31040 rss feed server
 31050 locust master web

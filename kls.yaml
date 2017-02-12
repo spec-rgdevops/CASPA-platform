@@ -10,6 +10,9 @@ spec:
   - port: 8080
     name: kls-http
     nodePort: 31020
+  - port: 22
+    name: kls-ssh
+    nodePort: 31021
   selector:
     name: kls
 ---
