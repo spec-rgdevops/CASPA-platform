@@ -55,7 +55,7 @@ spec:
             - name: TARGET_URL
               value: http://edge:9090
             - name: INFLUXDB_URL
-              value: http://influxdb
+              value: influxdb
             - name: INFLUXDB_PORT
               value: '8086'
           ports:
