@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
         - name: locust
-          image: hora/recipes-rss-locust:0.4
+          image: hora/recipes-rss-locust:0.5
           imagePullPolicy: Always
           env:
             - name: LOCUST_MODE
