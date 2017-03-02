@@ -1,31 +1,44 @@
-# kubernetes-recipes-rss
+# A Platform for Comparability of Architecture-based Software Performance Engineering Approaches
 
-Configuration files for deploying [RSS Recipes](https://github.com/hora-prediction/recipes-rss-kube) on Kubernetes.
+## Infrastructure layer
+* A Kubernetes cluster can be setup either on a local machine or in a cloud environment:
+   * [minikube](https://github.com/kubernetes/minikube) for setting up on a local machine
+   * [Physical/virtual cluster](https://kubernetes.io/docs/getting-started-guides/) for setting up in a cloud environment
 
-# System requirements
-* A Kubernetes cluster
-   * [minikube](https://github.com/kubernetes/minikube) on a local machine or
-   * [Physical/virtual cluster](https://kubernetes.io/docs/getting-started-guides/)
+## Application layer
 
-# How to deploy RSS Recipes
+### RSS Recipes
 
 RSS Recipes can be deployed by executing the following steps on the master node:
 
-1. Deploy ActiveMQ server
-   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/activemq.yaml```
-1. Deploy Kieker Logging Server
-   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/kls.yaml```
-1. Deploy RSS Recipes application
-   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/rssreader.yaml``` for the application without instrumentation or
-   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
-1. Initialize cassandra keyspace
-   * ```curl -s https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/initialize-cassandra.cql -o initialize-cassandra.cql```
+* Deploy RSS Recipes application
+   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/rssreader.yaml``` for the application without instrumentation or
+   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
+* Initialize cassandra keyspace
+   * ```curl -s https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/initialize-cassandra.cql -o initialize-cassandra.cql```
    * ```kubectl cp initialize-cassandra.cql $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1):/.```
-   * ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002``` Note: This step may need to be executed many times until it returns success.
-1. Deploy [Locust](http://locust.io/) for load testing
-   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-master.yaml```
-   * ```kubectl create -f https://raw.githubusercontent.com/hora-prediction/kubernetes-recipes-rss/master/locust-worker.yaml```
+   * ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002```
    
+### CoCoME
+
+The instruction to setup CoCoME can be found [here](https://github.com/cocome-community-case-study/cocome-cloud-jee-docker)
+   
+## Monitoring layer
+### Kieker monitoring server
+
+1. Deploy ActiveMQ server
+   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/activemq.yaml```
+1. Deploy Kieker Logging Server
+   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/kls.yaml```
+
+## Workload layer
+
+* Deploy [Locust](http://locust.io/) for load testing
+   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-master.yaml```
+   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-worker.yaml```
+
+## Running the experiment
+
 After deploying all components, the following web-ui can be accessed:
 * For minikube
    * RSS Recipes
