@@ -11,13 +11,13 @@
 
 RSS Recipes can be deployed by executing the following steps on the master node:
 
-* Deploy RSS Recipes application
+1. Deploy RSS Recipes application
    * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/rssreader.yaml``` for the application without instrumentation or
    * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
-* Initialize cassandra keyspace
-   * ```curl -s https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/initialize-cassandra.cql -o initialize-cassandra.cql```
-   * ```kubectl cp initialize-cassandra.cql $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1):/.```
-   * ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002```
+1. Initialize cassandra keyspace
+   1. ```curl -s https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/initialize-cassandra.cql -o initialize-cassandra.cql```
+   1. ```kubectl cp initialize-cassandra.cql $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1):/.```
+   1. ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002```
    
 ### CoCoME
 
@@ -34,8 +34,8 @@ The instruction to setup CoCoME can be found [here](https://github.com/cocome-co
 ## Workload layer
 
 * Deploy [Locust](http://locust.io/) for load testing
-   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-master.yaml```
-   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-worker.yaml```
+   1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-master.yaml```
+   1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-worker.yaml```
 
 ## Running the experiment
 
