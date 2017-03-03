@@ -10,10 +10,9 @@ CASPA is a ready-to-use and extensible evaluation platform that already includes
    * [Physical/virtual cluster](https://kubernetes.io/docs/getting-started-guides/) for setting up in a cloud environment
 
 ## Application layer
+### RSS Reader
 
-### RSS Recipes
-
-RSS Recipes can be deployed by executing the following steps on the master node:
+RSS Reader can be deployed by executing the following steps on the master node:
 
 1. Deploy RSS Recipes application
    * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/rssreader.yaml``` for the application without instrumentation or
@@ -39,17 +38,28 @@ The instruction to setup SPECjEnterprise can be found [here] (https://github.com
 1. Deploy Kieker Logging Server
    * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/kls.yaml```
 
+### inspectIT
+
+The instruction to setup inspectIT can be found [here] (https://github.com/inspectit-docker)
+
 ## Workload layer
 
 * Deploy [Locust](http://locust.io/) for load testing
    1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-master.yaml```
    1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-worker.yaml```
 
+## Analysis layer
+
+### PMX
+
+### iObserve
+The instruction to setup iObserve can be found [here](https://github.com/research-iobserve/docker-images)
+
 ## Running the experiment
 
 After deploying all components, the following web-ui can be accessed:
 * For minikube
-   * RSS Recipes
+   * RSS Reader
       * http://192.168.99.100:31000/jsp/rss.jsp
    * Locust
       * http://192.168.99.100:31050
