@@ -51,6 +51,7 @@ The instruction to setup inspectIT can be found [here] (https://github.com/inspe
 ## Analysis layer
 
 ### PMX
+The instruction to setup PMX can be found [here] (https://se3.informatik.uni-wuerzburg.de/descartes/pmx-dml)
 
 ### iObserve
 The instruction to setup iObserve can be found [here](https://github.com/research-iobserve/docker-images)
