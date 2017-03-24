@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    name: grafana
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    name: http
+    nodePort: 31060
+  selector:
+    name: grafana
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: grafana
+  labels:
+    name: grafana
+spec:
+  replicas: 1
+  selector:
+    name: grafana
+  template:
+    metadata:
+      labels:
+        name: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        ports:
+        - containerPort: 3000
+        env:
+          - name: GF_SERVER_ROOT_URL
+            value: /
+          - name: GF_AUTH_BASIC_ENABLED
+            value: "false"
+          - name: GF_AUTH_ANONYMOUS_ENABLED
+            value: "true"
+          - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+            value: Admin

@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admx
+  labels:
+    name: admx
+spec:
+  type: NodePort
+  ports:
+  - port: 8081
+    name: http
+    nodePort: 31101
+  selector:
+    name: admx
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: admx
+  labels:
+    name: admx
+spec:
+  replicas: 1
+  selector:
+    name: admx
+  template:
+    metadata:
+      labels:
+        name: admx
+    spec:
+      containers:
+      - name: admx
+        image: hora/admx:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+          - name: ADMX_INFLUXDB_ADDR
+            value: "http://influxdb:8086"
+          - name: ADMX_INFLUXDB_USERNAME
+            value: "root"
+          - name: ADMX_INFLUXDB_PASSWORD
+            value: "root"
+          - name: ADMX_INFLUXDB_BATCH
+            value: "false"
