@@ -10,6 +10,7 @@ CASPA is a ready-to-use and extensible evaluation platform that already includes
    * [Physical/virtual cluster](https://kubernetes.io/docs/getting-started-guides/) for setting up in a cloud environment
 * [InfluxDB](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/influxdb)
 * [Grafana](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/grafana)
+* [Kubernetes addons](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/k8s-addons)
 
 ## Application layer
 * [RSS Reader](https://github.com/spec-rgdevops/CASPA-platform/tree/master/application/rssreader)
