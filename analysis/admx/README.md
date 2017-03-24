@@ -4,10 +4,8 @@ ADMX is a model extractor that extracts Architectural Dependency Model (ADM) fro
 
 ## Requirement
 ADMX requires the following services:
-* Kieker Monitoring Server to collect monitoring data from the application
-* InfluxDB to store monitoring data
-
-These services are parts of the CASPA platform and the setup instructions can be found in the corresponding directories.
+* [Kieker](https://github.com/spec-rgdevops/CASPA-platform/tree/master/monitoring/kieker) Monitoring Server to collect monitoring data from the application
+* [InfluxDB](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/influxdb) to store monitoring data
 
 ## Deployment
 * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/analysis/admx/admx.yaml```

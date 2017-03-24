@@ -4,11 +4,9 @@ Hora is an online failure prediction approach that aims to predict cascading fai
 
 ## Requirement
 Hora requires the following services:
-* Kieker Monitoring Server to collect monitoring data from the application
-* InfluxDB to store monitoring data and the prediction results
-* (Optional) Grafana to visualize the monitoring data and the prediction results
-
-These services are parts of the CASPA platform and the setup instructions can be found in the corresponding directories.
+* [Kieker Monitoring Server](https://github.com/spec-rgdevops/CASPA-platform/tree/master/monitoring/kieker) to collect monitoring data from the application
+* [InfluxDB](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/influxdb) to store monitoring data and the prediction results
+* (Optional) [Grafana](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/grafana) to visualize the monitoring data and the prediction results
 
 ## Deployment
 * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/analysis/hora/hora.yaml```
