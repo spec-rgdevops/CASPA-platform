@@ -1,14 +1,14 @@
 # Kieker Monitoring Server
 
-`activemq-kls.yml` deploys two services:
+## Deployment
+Kieker Monitoring Server can be deployed by executing
+* ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/monitoring/kieker/activemq-kls.yaml```
+
+The deployment includes:
 * ActiveMQ which collects monitoring data from the instrumented application
 * Kieker Logging Server (KLS) which reads monitoring data from ActiveMQ and writes them to
   * File system and/or
   * InfluxDB
-
-## Deployment
-Kieker Monitoring Server can be deployed by executing
-* ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/monitoring/kieker/activemq-kls.yaml```
 
 ## Exposed ports
 When deployed, the following ports are exposed on Kubernetes cluster nodes:
