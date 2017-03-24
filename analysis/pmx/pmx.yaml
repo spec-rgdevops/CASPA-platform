@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pmx
+  labels:
+    name: pmx
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    name: http
+    nodePort: 31090
+  selector:
+    name: pmx
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: pmx
+  labels:
+    name: pmx
+spec:
+  replicas: 1
+  selector:
+    name: pmx
+  template:
+    metadata:
+      labels:
+        name: pmx
+    spec:
+      containers:
+      - name: pmx
+        image: descartes/pmx-dml-server
+        ports:
+        - containerPort: 8080
