@@ -29,4 +29,4 @@ When deployed, the following ports are exposed on Kubernetes cluster nodes:
 * `31001` Middletier REST API
 * `31002` Cassandra CQL
 * `31003` Cassandra Thrift
-* `31004` RSS server
+* `31004` RSS feed server

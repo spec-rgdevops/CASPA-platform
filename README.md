@@ -10,63 +10,18 @@ CASPA is a ready-to-use and extensible evaluation platform that already includes
    * [Physical/virtual cluster](https://kubernetes.io/docs/getting-started-guides/) for setting up in a cloud environment
 
 ## Application layer
-### RSS Reader
-
-RSS Reader can be deployed by executing the following steps on the master node:
-
-1. Deploy RSS Recipes application
-   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/rssreader.yaml``` for the application without instrumentation or
-   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/rssreader-kieker.yaml``` for the application instrumented with [Kieker](http://kieker-monitoring.net/)
-1. Initialize cassandra keyspace
-   1. ```curl -s https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/initialize-cassandra.cql -o initialize-cassandra.cql```
-   1. ```kubectl cp initialize-cassandra.cql $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1):/.```
-   1. ```kubectl exec $(kubectl get po | grep ^cassandra- | head -n 1 | cut -d ' ' -f1) -- cqlsh -f /initialize-cassandra.cql $(kubectl get nodes | head -n 2 | tail -n 1 | cut -d ' ' -f1) 31002```
-   
-### CoCoME
-
-The instruction to setup CoCoME can be found [here](https://github.com/cocome-community-case-study/cocome-cloud-jee-docker)
-
-### SPECjEnterprise
-
-The instruction to setup SPECjEnterprise can be found [here] (https://github.com/spec-rgdevops/docker-SPECjEnterprise2010)
-   
-## Monitoring layer
-### Kieker monitoring server
-
-1. Deploy ActiveMQ server
-   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/activemq.yaml```
-1. Deploy Kieker Logging Server
-   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/kls.yaml```
-
-### inspectIT
-
-The instruction to setup inspectIT can be found [here] (https://github.com/inspectit-docker)
+* RSS Reader
+* [CoCoME](https://github.com/cocome-community-case-study/cocome-cloud-jee-docker)
+* [SPECjEnterprise](https://github.com/spec-rgdevops/docker-SPECjEnterprise2010)
 
 ## Workload layer
+The workload generator is appliclation-specific and can be found in the corresponding application directory.
 
-* Deploy [Locust](http://locust.io/) for load testing
-   1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-master.yaml```
-   1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/locust-worker.yaml```
+## Monitoring layer
+* Kieker Monitoring Server
+* [inspectIT](https://github.com/inspectit-docker)
 
 ## Analysis layer
-
-### PMX
-The instruction to setup PMX can be found [here] (https://se3.informatik.uni-wuerzburg.de/descartes/pmx-dml)
-
-### iObserve
-The instruction to setup iObserve can be found [here](https://github.com/research-iobserve/docker-images)
-
-## Running the experiment
-
-After deploying all components, the following web-ui can be accessed:
-* For minikube
-   * RSS Reader
-      * http://192.168.99.100:31000/jsp/rss.jsp
-   * Locust
-      * http://192.168.99.100:31050
-   * ActiveMQ
-      * http://192.168.99.100:31010 (username: admin, password: admin)
-   * Kieker monitoring log (available as a zip file)
-      * http://192.168.99.100:31020/logs
-* For physical/virtual cluster
-   * Same as those for minikube but replace `192.168.99.100` with one of the node IPs. (Run `kubectl get nodes` to see the list of nodes)
+* Hora
+* PMX
+* [iObserve](https://github.com/research-iobserve/docker-images)
