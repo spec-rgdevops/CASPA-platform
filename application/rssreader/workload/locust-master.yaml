@@ -47,11 +47,13 @@ spec:
     spec:
       containers:
         - name: locust
-          image: hora/recipes-rss-locust:0.5
+          image: hora/docker-locust:latest
           imagePullPolicy: Always
           env:
             - name: LOCUST_MODE
               value: master
+            - name: LOCUST_FILE_URL
+              value: http://raw.githubusercontent.com/hora-prediction/recipes-rss-kube-docker/master/locust/test/locustfile.py
             - name: TARGET_URL
               value: http://edge:9090
             - name: INFLUXDB_URL
