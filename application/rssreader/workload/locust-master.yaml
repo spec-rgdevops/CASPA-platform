@@ -53,7 +53,7 @@ spec:
             - name: LOCUST_MODE
               value: master
             - name: LOCUST_FILE_URL
-              value: http://raw.githubusercontent.com/hora-prediction/recipes-rss-kube-docker/master/locust/test/locustfile.py
+              value: http://raw.githubusercontent.com/hora-prediction/recipes-rss-kube-docker/master/locust/locustfile.py
             - name: TARGET_URL
               value: http://edge:9090
             - name: INFLUXDB_URL
