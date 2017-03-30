@@ -12,6 +12,10 @@ CASPA is a ready-to-use and extensible evaluation platform that already includes
 * [Grafana](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/grafana)
 * [Kubernetes addons](https://github.com/spec-rgdevops/CASPA-platform/tree/master/infrastructure/k8s-addons)
 
+## Monitoring layer
+* [Kieker Monitoring Server](https://github.com/spec-rgdevops/CASPA-platform/tree/master/monitoring/kieker)
+* [inspectIT](https://github.com/inspectit-docker)
+
 ## Application layer
 * [RSS Reader](https://github.com/spec-rgdevops/CASPA-platform/tree/master/application/rssreader)
 * [CoCoME](https://github.com/cocome-community-case-study/cocome-cloud-jee-docker)
@@ -19,10 +23,6 @@ CASPA is a ready-to-use and extensible evaluation platform that already includes
 
 ## Workload layer
 The workload generator is appliclation-specific and can be found in the corresponding application directory.
-
-## Monitoring layer
-* [Kieker Monitoring Server](https://github.com/spec-rgdevops/CASPA-platform/tree/master/monitoring/kieker)
-* [inspectIT](https://github.com/inspectit-docker)
 
 ## Analysis layer
 * [Hora](https://github.com/spec-rgdevops/CASPA-platform/tree/master/analysis/hora)
