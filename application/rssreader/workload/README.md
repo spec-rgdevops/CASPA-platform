@@ -4,8 +4,7 @@
 
 ## Deployment
 Locust can be deployed by executing the following steps on the master node:
-   1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/application/rssreader/workload/locust-master.yaml```
-   1. ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/application/rssreader/workload/locust-worker.yaml```
+   * ```kubectl create -f https://raw.githubusercontent.com/spec-rgdevops/CASPA-platform/master/application/rssreader/workload/locust.yaml```
 
 ## Exposed ports
 When deployed, the following ports are exposed on Kubernetes cluster nodes:
