@@ -1,0 +1,108 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: locust-master
+  labels:
+    name: locust
+    role: master
+spec:
+  type: NodePort
+  ports:
+    - port: 8089
+      targetPort: loc-master-web
+      protocol: TCP
+      name: loc-master-web
+      nodePort: 31050
+    - port: 5557
+      targetPort: loc-master-p1
+      protocol: TCP
+      name: loc-master-p1
+      nodePort: 31051
+    - port: 5558
+      targetPort: loc-master-p2
+      protocol: TCP
+      name: loc-master-p2
+      nodePort: 31052
+  selector:
+    name: locust
+    role: master
+---
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: locust-master
+  labels:
+    name: locust
+    role: master
+spec:
+  replicas: 1
+  selector:
+    name: locust
+    role: master
+  template:
+    metadata:
+      labels:
+        name: locust
+        role: master
+    spec:
+      containers:
+        - name: locust
+          image: tinyjosh/docker-locust-faker:latest
+          imagePullPolicy: Always
+          env:
+            - name: LOCUST_MODE
+              value: master
+            - name: LOCUST_FILE_URL
+              value: https://raw.githubusercontent.com/microservices-demo/load-test/master/locustfile.py
+            - name: TARGET_URL
+              value: http://front-end.sock-shop.svc.cluster.local
+            - name: INFLUXDB_URL
+              value: influxdb
+            - name: INFLUXDB_PORT
+              value: '8086'
+          ports:
+            - name: loc-master-web
+              containerPort: 8089
+              protocol: TCP
+            - name: loc-master-p1
+              containerPort: 5557
+              protocol: TCP
+            - name: loc-master-p2
+              containerPort: 5558
+              protocol: TCP
+---
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: locust-worker
+  labels:
+    name: locust
+    role: worker
+spec:
+  replicas: 2
+  selector:
+    name: locust
+    role: worker
+  template:
+    metadata:
+      labels:
+        name: locust
+        role: worker
+    spec:
+      containers:
+        - name: locust
+          image: tinyjosh/docker-locust-faker:latest
+          imagePullPolicy: Always
+          env:
+            - name: LOCUST_MODE
+              value: slave
+            - name: MASTER_HOST
+              value: locust-master
+            - name: TARGET_URL
+              value: http://front-end.sock-shop.svc.cluster.local
+            - name: LOCUST_FILE_URL
+              value: https://raw.githubusercontent.com/microservices-demo/load-test/master/locustfile.py
+            - name: INFLUXDB_URL
+              value: influxdb
+            - name: INFLUXDB_PORT
+              value: '8086'
