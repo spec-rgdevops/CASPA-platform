@@ -159,7 +159,7 @@ spec:
   ports:
   - port: 80
     name: http
-    nodePort: 31040
+    nodePort: 31004
   selector:
     name: rssserver
 ---
