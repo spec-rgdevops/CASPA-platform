@@ -35,11 +35,13 @@ spec:
         ports:
         - containerPort: 8081
         env:
-          - name: ADMX_INFLUXDB_ADDR
+          - name: ADMX_INFLUXDB_KIEKER_ADDR
             value: "http://influxdb:8086"
-          - name: ADMX_INFLUXDB_USERNAME
+          - name: ADMX_INFLUXDB_KIEKER_USERNAME
             value: "root"
-          - name: ADMX_INFLUXDB_PASSWORD
+          - name: ADMX_INFLUXDB_KIEKER_PASSWORD
             value: "root"
-          - name: ADMX_INFLUXDB_BATCH
+          - name: ADMX_INFLUXDB_KIEKER_DB
+            value: "kieker"
+          - name: ADMX_BATCH
             value: "false"
